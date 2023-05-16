@@ -1,0 +1,39 @@
+hertz:
+  address: ":8080"
+  enablePprof: true
+  enableAccessLog: true
+  exitWaitTime: 1 # in seconds
+
+swagger:
+  enable: true
+  version: "0.1.0"
+  host: "localhost:8080"
+  basePath: "/"
+  Schemes: "http"
+
+mysql:
+  connMaxIdle: 10
+  connMaxOpen: 100
+  connMaxIdleTime: 600  # in seconds
+  connMaxLifeTime: 3000 # in seconds
+  separation: true # 配置是否使用读写分离，方便改配置切换
+  master: "root:@tcp(127.0.0.1:3306)/demo?charset=utf8mb4&parseTime=True&loc=Local"
+  slave:
+    - "root:@tcp(127.0.0.1:3306)/demo?charset=utf8mb4&parseTime=True&loc=Local"
+    - "root:@tcp(127.0.0.1:3306)/demo?charset=utf8mb4&parseTime=True&loc=Local"
+  defaultStringSize: 255 # string 类型字段的默认长度
+  disableDatetimePrecision: true # 禁用 datetime 精度，MySQL 5.6 之前的数据库不支持
+  skipInitializeWithVersion: false # 根据当前 MySQL 版本自动配置
+  gorm: # gorm配置项disableForeignKeyConstraintWhenMigrating
+    ignoreRecordNotFoundError: false # 是否忽略ErrRecordNotFound(未查到记录错误)
+    slowThreshold: 100 # 慢sql时间。单位毫秒
+    skipDefaultTx: false # 是否跳过默认事务
+    prepareStmt: true # 执行任何SQL时都会创建一个prepared statement并将其缓存，以提高后续的效率
+
+logger: # TODO
+  level: "trace"
+  stdout: true
+  logFileName: "log/hertz.log"
+  logMaxSize: 10
+  logMaxAge: 3
+  logMaxBackups: 50

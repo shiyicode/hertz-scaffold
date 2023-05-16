@@ -1,0 +1,157 @@
+basePath: /
+definitions:
+  book.Book:
+    properties:
+      author:
+        type: string
+      pages:
+        type: integer
+      title:
+        type: string
+    type: object
+  github_com_three-body_hertz-scaffold_biz_hmodel_user.User:
+    properties:
+      email:
+        type: string
+      nickname:
+        type: string
+      uid:
+        type: string
+    type: object
+  user.LoginResponse:
+    properties:
+      expire:
+        type: string
+      token:
+        type: string
+    type: object
+  user.LogoutResponse:
+    type: object
+externalDocs:
+  description: How to write the API docs
+  url: https://github.com/swaggo/swag/blob/master/README.md
+host: localhost:8080
+info:
+  contact:
+    email: shiyi@threebody.xyz
+    name: threebody
+    url: https://github.com/three-body
+  description: API Server for Hertz Scaffold
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Hertz Scaffold API
+  version: 0.1.0
+paths:
+  /books:
+    get:
+      responses: {}
+  /books/:id:
+    get:
+      responses: {}
+    patch:
+      responses: {}
+    post:
+      responses: {}
+    put:
+      responses: {}
+  /books/{id}:
+    delete:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/book.Book'
+      security:
+      - JWT: []
+      summary: delete book
+      tags:
+      - book
+  /users/login:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: email
+        in: formData
+        name: email
+        required: true
+        type: string
+      - description: password
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.LoginResponse'
+      summary: login
+      tags:
+      - user
+  /users/logout:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.LogoutResponse'
+      summary: logout
+      tags:
+      - user
+  /users/signup:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: email
+        in: formData
+        name: email
+        required: true
+        type: string
+      - description: password
+        in: formData
+        name: password
+        required: true
+        type: string
+      - description: nickname
+        in: formData
+        name: nickname
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_three-body_hertz-scaffold_biz_hmodel_user.User'
+      summary: signup
+      tags:
+      - user
+schemes:
+- http
+securityDefinitions:
+  JWT:
+    description: Type "Bearer" followed by a space and JWT token.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

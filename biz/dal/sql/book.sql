@@ -1,0 +1,15 @@
+CREATE TABLE `book` (
+                        `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+                        `uid` varchar(128) NOT NULL DEFAULT '' COMMENT 'uid',
+                        `title` varchar(128) NOT NULL DEFAULT '' COMMENT 'title',
+                        `author` varchar(128) NOT NULL DEFAULT '' COMMENT 'author',
+                        `pages` int NOT NULL DEFAULT '0' COMMENT 'page num of book',
+                        `extra` json NOT NULL  COMMENT 'extra info of book',
+                        `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'created time',
+                        `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'updated time',
+                        `deleted_at` bigint unsigned NOT NULL DEFAULT '0' COMMENT 'deleted time',
+                        PRIMARY KEY (`id`),
+                        UNIQUE KEY `uni_uid` (`uid`),
+                        KEY `idx_title` (`title`),
+                        KEY `idx_author` (`author`),
+KEY `idx_deleted_at` (`deleted_at`)) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'book table';
